@@ -16,15 +16,24 @@ namespace DistribuidoraFabio.Venta
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AgregarVenta : ContentPage
 	{
-		List<string> entries = new List<string>();
+		List<ProductoNombre> prods = new List<ProductoNombre>();
+        private int idProductoSelected = 0;
 		public AgregarVenta()
 		{
 			InitializeComponent();
             tipoVentaEntry.ItemsSource = new List<string> { "Contado", "Credito" };
             GetDataCliente();
 			GetDataVendedor();
+            GetTipoProducto();
+            GetProductos();
+
+        }
+		protected override void OnAppearing()
+		{
+            listProductos.ItemsSource = App._detalleVData;
+			base.OnAppearing();
 		}
-        private async void CampoVenta()
+		private async void CampoVenta()
         {
             HttpClient client = new HttpClient();
             var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/ventas/listaVenta.php");
@@ -51,47 +60,37 @@ namespace DistribuidoraFabio.Venta
                 await DisplayAlert("Erro", error.ToString(), "OK");
             }
         }
-
-        private int contcampos = 0;
-        private string pickTipoProdChanged;
-        private string pickProdNomChanged;
-        private decimal MontoTotal = 0;
-        private decimal Precio = 0;
-        private decimal Cantidad = 0;
-        private decimal Descuento = 0;
-        private decimal Subtotal = 0;
-        int contador = 0;
-        int IdStkPrimer = 0;
-        int IdStkSegundo = 0;
-        int IdStkF1 = 0;
-        int IdStkFV1 = 0;
-        int IdStkFB1 = 0;
-        int IdStkF2 = 0;
-        int IdStkF3 = 0;
-        int IdPickTP = 0;
-        int IdPickPR = 0;
-        int IdEntSubtotal = 0;
-        int IdEntPrecio = 0;
-        int IdEntDesc = 0;
-        int IdEntCant = 0;
-        int contPosicion = 0;
-        string[] tiProArr = new string[20];
-        string[] prodArr = new string[20];
-        string[] precioArr = new string[20];
-        string[] cantArr = new string[20];
-        string[] descArr = new string[20];
-        string[] subtArr = new string[20];
-        string[] subProdArr = new string[20];
-        string[] idProdArr = new string[20];
-        string[] nombreProdArr = new string[20];
-        string[] promedioArr = new string[20];
-        string[] stockArr = new string[20];
-        string[] stockValoradoArr = new string[20];
-        string[] precioVentArr = new string[20];
-
-        string[] arrayColor = { "#CED8F6", "#ACE0A2", "#CED8F6", "#ACE0A2", "#CED8F6", "#ACE0A2", "#CED8F6", "#ACE0A2", "#CED8F6", "#ACE0A2" };
-
-        private decimal PrecioPrueba = 0;
+        private async void GetTipoProducto()
+		{
+            try
+            {
+                HttpClient client = new HttpClient();
+                var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/tipoproductos/listaTipoproducto.php");
+                var tp_productos = JsonConvert.DeserializeObject<List<Tipo_producto>>(response).ToList();
+                picker_TP.ItemsSource = tp_productos;
+            }
+            catch (Exception error)
+            {
+                await DisplayAlert("Erro", error.ToString(), "OK");
+            }
+        }
+        public async void GetProductos()
+		{
+            try
+            {
+                HttpClient client = new HttpClient();
+                var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/productos/listaProductoNombres.php");
+                var prodsList = JsonConvert.DeserializeObject<List<ProductoNombre>>(response).ToList();
+                foreach(var item in prodsList)
+                {
+                    prods.Add(item);
+				}
+            }
+            catch (Exception error)
+            {
+                await DisplayAlert("Erro", error.ToString(), "OK");
+            }
+        }
 
         public async void NuevoProducto()
         {
@@ -154,13 +153,13 @@ namespace DistribuidoraFabio.Venta
         }
         private async void resultado()
         {
-            int x = 0;
-            for (int r = 0; r < contcampos; r++)
-            {
-                x = x + 1;
-                MontoTotal = MontoTotal + Convert.ToDecimal(subtArr[x]);
-            }
-            totalVentaEntry.Text = MontoTotal.ToString();
+            //int x = 0;
+            //for (int r = 0; r < contcampos; r++)
+            //{
+            //    x = x + 1;
+            //    MontoTotal = MontoTotal + Convert.ToDecimal(subtArr[x]);
+            //}
+            //totalVentaEntry.Text = MontoTotal.ToString();
         }
 
         private async void BtnVentaGuardar_Clicked(object sender, EventArgs e)
@@ -258,5 +257,106 @@ namespace DistribuidoraFabio.Venta
             //    await DisplayAlert("ERROR", error.ToString(), "OK");
             ////}
         }
+        string pickedTP;
+		private async void picker_TP_SelectedIndexChanged(object sender, EventArgs e)
+		{
+            var picker = (Picker)sender;
+            int selectedIndex = picker.SelectedIndex;
+
+            if(selectedIndex != -1)
+			{
+                pickedTP = picker.Items[selectedIndex];
+			}
+            try
+			{
+                foreach (var item in prods)
+				{
+                    if(item.nombre_tipo_producto == pickedTP)
+					{
+                        picker_Producto.Items.Clear();
+                        picker_Producto.Items.Add(item.display_text_nombre);
+					}
+				}
+            }
+            catch (Exception error)
+            {
+                await DisplayAlert("Erro", error.ToString(), "OK");
+            }
+            
+		}
+        string pickedProducto;
+        private async void picker_Producto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var picker = (Picker)sender;
+                int selectedIndex = picker.SelectedIndex;
+
+                if (selectedIndex != -1)
+                {
+                    pickedProducto = picker.Items[selectedIndex];
+                    try
+                    {
+                        foreach(var item in prods)
+						{
+                            if (pickedProducto == item.display_text_nombre)
+							{
+                                txtPrecio.Text = item.precio_venta.ToString("0.##");
+                                idProductoSelected = item.id_producto;
+							}
+						}
+					}
+                    catch (Exception err)
+                    {
+                        await DisplayAlert("ERROR", err.ToString(), "OK");
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                await DisplayAlert("ERROR", err.ToString(), "OK");
+            }
+        }
+        decimal precioSelected = 0;
+        int cantidaSelected = 0;
+        decimal descuentoSelected = 0;
+        decimal precioFinalSelected = 0;
+        decimal subTotalSelected = 0;
+		private async void txtDescuento_Completed(object sender, EventArgs e)
+		{
+            try
+			{
+                precioSelected = Convert.ToDecimal(txtPrecio.Text);
+                cantidaSelected = Convert.ToInt32(txtCantidad.Text);
+                descuentoSelected = Convert.ToDecimal(txtDescuento.Text);
+                precioFinalSelected = precioSelected - descuentoSelected;
+                subTotalSelected = precioFinalSelected * cantidaSelected;
+                txtSubTotal.Text = subTotalSelected.ToString();
+            }
+            catch(Exception err)
+			{
+                await DisplayAlert("ERROR", err.ToString(), "OK");
+			}
+		}
+		private async void agregarAlista_Clicked(object sender, EventArgs e)
+		{
+            try
+			{
+                App._detalleVData.Add(new DetalleVenta_previo
+                {
+                    cantidad = cantidaSelected,
+                    id_producto = idProductoSelected,
+                    nombre_producto = pickedTP + " " + pickedProducto,
+                    precio_producto = precioSelected,
+                    descuento = descuentoSelected,
+                    sub_total = subTotalSelected,
+                    factura = Convert.ToInt32(numero_facturaVentaEntry.Text)
+                });
+			}
+            catch(Exception err)
+			{
+                await DisplayAlert("Erro", err.ToString(), "OK");
+            }
+		}
+	}
     }
-}

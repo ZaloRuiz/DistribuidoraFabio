@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DistribuidoraFabio.Models;
+using System;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,7 +15,8 @@ namespace DistribuidoraFabio
 			MainPage = new Menu();
 			//MainPage = new NavigationPage(new Menu());
 		}
-
+		public static ObservableCollection<DetalleVenta_previo> _detalleVData = new ObservableCollection<DetalleVenta_previo>();
+		public static ObservableCollection<DetalleVenta_previo> _DetalleVentaData { get { return _detalleVData; } }
 		protected override void OnStart()
 		{
 		}
