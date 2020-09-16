@@ -1,0 +1,43 @@
+﻿using DistribuidoraFabio.Models;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace DistribuidoraFabio.Venta
+{
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class ListaVenta : ContentPage
+	{
+		public ListaVenta()
+		{
+			InitializeComponent();
+		}
+		private void ToolbarItem_Clicked(object sender, EventArgs e)
+		{
+			Navigation.PushAsync(new AgregarVenta());
+		}
+		protected async override void OnAppearing()
+		{
+			base.OnAppearing();
+
+			HttpClient client = new HttpClient();
+			var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/ventas/listaVenta.php");
+			var ventas = JsonConvert.DeserializeObject<List<Ventas>>(response);
+
+			listaVenta.ItemsSource = ventas;
+		}
+		private async void OnItemSelected(object sender, ItemTappedEventArgs e)
+		{
+			var detalles = e.Item as Ventas;
+			await Navigation.PushAsync(new MostrarVenta(detalles.id_venta, detalles.fecha, detalles.numero_factura, detalles.id_cliente,
+														detalles.id_vendedor, detalles.tipo_venta, detalles.saldo, detalles.total));
+		}
+	}
+}

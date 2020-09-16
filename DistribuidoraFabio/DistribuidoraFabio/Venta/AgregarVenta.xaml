@@ -3,11 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DistribuidoraFabio.Venta.AgregarVenta">
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <ScrollView>
+         <ScrollView>
                 <StackLayout x:Name="stkVenta" BackgroundColor="White" Padding="10">
                     <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                         <Picker x:Name="clientePicker" Title="Cliente"
@@ -39,22 +35,26 @@
                                             ItemsSource="{Binding display_text_nombre}" ItemDisplayBinding="{Binding display_text_nombre}" 
                                             SelectedItem="{Binding display_text_nombre}"/>
                                     <Entry x:Name="txtPrecio" Placeholder="Precio" TextColor="Black" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
-                                           IsEnabled="False"/>
-                                </StackLayout>
+                                           IsReadOnly="True"/>
+                                <Entry x:Name="txtStock" TextColor="Black" Placeholder="Stock" VerticalOptions="Center" HorizontalOptions="FillAndExpand" IsReadOnly="True"/>
+                            </StackLayout>
                                 <StackLayout Orientation="Horizontal">
-                                    <Entry x:Name="txtCantidad" Placeholder="Cantidad" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+                                <Entry x:Name="txtCantidad" Placeholder="Cantidad" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
                                            Keyboard="Numeric"/>
-                                    <Entry x:Name="txtDescuento" Placeholder="Descuento" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
-                                           Keyboard="Numeric" Completed="txtDescuento_Completed"/>
-                                    <Entry x:Name="txtSubTotal" Placeholder="Sub total" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
-                                    <Button x:Name="agregarAlista" Text="Agregar" Padding="0" Margin="0" FontSize="12" VerticalOptions="EndAndExpand" 
+                                <Entry x:Name="txtDescuento" Placeholder="Descuento" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+                                        Keyboard="Numeric" Completed="txtDescuento_Completed"/>
+                                <Entry x:Name="txtSubTotal" Placeholder="Sub total" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                                <Label x:Name="txtStockValorado" IsVisible="false"/>
+                                <Label x:Name="txtPromedio" IsVisible="false"/>
+                                <Button x:Name="agregarAlista" Text="Agregar" Padding="0" Margin="0" FontSize="12" VerticalOptions="EndAndExpand" 
                                             HorizontalOptions="EndAndExpand" BackgroundColor="Green" TextColor="White" Clicked="agregarAlista_Clicked"/>
                                 </StackLayout>
                             </StackLayout>
                         </Frame>
                     </StackLayout>
                     <StackLayout>
-                        <ListView x:Name="listProductos" HorizontalOptions="FillAndExpand" HeightRequest="150">
+                        <ListView x:Name="listProductos" HorizontalOptions="FillAndExpand" HeightRequest="150" VerticalScrollBarVisibility="Always" 
+                                  ItemTapped="listProductos_ItemTapped">
                             <ListView.Header>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="Lista productos" TextColor="Black"/>
@@ -63,7 +63,7 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <Grid Padding="5">
+                                        <Grid Padding="0">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="40"></RowDefinition>
                                             </Grid.RowDefinitions>
@@ -73,7 +73,7 @@
                                             <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" TextColor="Black" LineBreakMode="TailTruncation">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="   Producto: "/>
+                                                        <Span Text="Producto: "/>
                                                         <Span Text="{Binding nombre_producto}"/>
                                                         <Span Text="   Cantidad: "/>
                                                         <Span Text="{Binding cantidad}"/>
@@ -93,13 +93,9 @@
                     </StackLayout>
                     <Picker x:Name="tipoVentaEntry" Title="Tipo de Pago" SelectedIndexChanged="TipoVentaEntry_SelectedIndexChanged"/>
                     <Entry x:Name="saldo_VentaEntry" Placeholder="Credito" Keyboard="Numeric" Text="0" IsVisible="False"/>
-                    <Entry x:Name="totalVentaEntry" Keyboard="Numeric" Placeholder="Total" />
+                    <Entry x:Name="totalVentaEntry" Keyboard="Numeric" Placeholder="Total" TextColor="Black" IsReadOnly="True"/>
                     <Button x:Name="btnVentaGuardar" Text="Guardar" Padding="40, 20, 40, 20" Clicked="BtnVentaGuardar_Clicked"/>
                 </StackLayout>
             </ScrollView>
-            <Button Grid.Row="0" Text="Agregar Producto" BorderColor="#2b3c3c" BorderWidth="1" FontAttributes="Bold" BackgroundColor="Green" BorderRadius="35" 
-                TextColor="White" HorizontalOptions="End" FontSize="10" WidthRequest="100" HeightRequest="60" Margin="0,5,5,5" VerticalOptions="End"/>
-
-        </Grid>
     </ContentPage.Content>
 </ContentPage>

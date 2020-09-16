@@ -8,7 +8,6 @@ namespace DistribuidoraFabio.Models
     {
         public int id_venta { get; set; }
         public DateTime fecha { get; set; }
-        public DateTime hora { get; set; }
         public int numero_factura { get; set; }
         public int id_cliente { get; set; }
         public int id_vendedor { get; set; }

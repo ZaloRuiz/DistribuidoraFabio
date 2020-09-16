@@ -12,6 +12,8 @@ namespace DistribuidoraFabio.Models
         public decimal precio_producto { get; set; }
         public decimal descuento { get; set; }
         public decimal sub_total { get; set; }
-        public int factura { get; set; }
+        public decimal stock { get; set; }
+        public decimal stock_valorado { get; set; }
+        public decimal promedio { get; set; }
     }
 }
