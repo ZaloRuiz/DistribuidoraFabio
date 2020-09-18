@@ -36,7 +36,7 @@ namespace DistribuidoraFabio
 					new MenuMasterMenuItem { Id = 0, Title = "Inicio", icon="icon_inventario.png" },
 					new MenuMasterMenuItem { Id = 1, Title = "Inventario", TargetType = typeof(Inventario.InventarioGeneral), icon="icon_venta.png" },
 					new MenuMasterMenuItem { Id = 2, Title = "Ventas", TargetType = typeof(Venta.ListaVenta), icon="icon_compra.png" },
-					new MenuMasterMenuItem { Id = 3, Title = "Compras", icon="icon_producto.png" },
+					new MenuMasterMenuItem { Id = 3, Title = "Compras", TargetType = typeof(Compra.ListaCompra), icon="icon_producto.png" },
 					new MenuMasterMenuItem { Id = 4, Title = "Producto", icon="icon_cliente.png" },
 					new MenuMasterMenuItem { Id = 5, Title = "Cliente", TargetType = typeof(Cliente.AgregarCliente), icon="icon_cliente.png"},
 					new MenuMasterMenuItem { Id = 6, Title = "Proveedor", icon="icon_proveedor.png" },

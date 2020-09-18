@@ -23,6 +23,15 @@
     <EmbeddedResource Update="Cliente\AgregarCliente.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Compra\AgregarCompra.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Compra\ListaCompra.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Compra\MostrarCompra.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Inventario\InventarioGeneral.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -62,7 +71,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Compra\" />
     <Folder Include="Vendedor\" />
     <Folder Include="Proveedor\" />
     <Folder Include="Producto\" />
