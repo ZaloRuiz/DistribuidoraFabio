@@ -5,8 +5,10 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using DistribuidoraFabio.Helpers;
 using DistribuidoraFabio.Models;
 using Newtonsoft.Json;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -45,7 +47,6 @@ namespace DistribuidoraFabio.Compra
 				{
 					proveedorList.Add(item);
 				}
-				
 			}
 			catch (Exception error)
 			{
@@ -264,10 +265,11 @@ namespace DistribuidoraFabio.Compra
 		}
 		private async void btnCompraGuardar_Clicked(object sender, EventArgs e)
 		{
-			
+			string BusyReason = "Cargando...";
 			try
 			{
-				if(App._detalleCData.Count() > 0)
+				await PopupNavigation.Instance.PushAsync(new BusyPopup(BusyReason));
+				if (App._detalleCData.Count() > 0)
 				{
 					foreach (var item in App._detalleCData)
 					{
@@ -308,7 +310,7 @@ namespace DistribuidoraFabio.Compra
 						HttpClient client2 = new HttpClient();
 						var result2 = await client2.PostAsync("https://dmrbolivia.com/api_distribuidora/inventarios/agregarInventario.php", content2);
 
-						Producto producto = new Producto()
+						Models.Producto producto = new Models.Producto()
 						{
 							id_producto = item.id_producto,
 							stock = item.stock + item.cantidad,
@@ -335,19 +337,27 @@ namespace DistribuidoraFabio.Compra
 					var result = await client.PostAsync("https://dmrbolivia.com/api_distribuidora/compras/agregarCompra.php", content);
 					if (result.StatusCode == HttpStatusCode.OK)
 					{
+						await PopupNavigation.Instance.PopAsync();
 						await DisplayAlert("OK", "Se agrego correctamente", "OK");
 						App._detalleCData.Clear();
 						await Navigation.PopAsync();
 					}
 					else
 					{
+						await PopupNavigation.Instance.PopAsync();
 						await DisplayAlert("Error", result.StatusCode.ToString(), "OK");
 						await Navigation.PopAsync();
 					}
 				}
+				else
+				{
+					await PopupNavigation.Instance.PopAsync();
+					await DisplayAlert("ERROR", "Agregue productos a la lista", "OK");
+				}
 			}
 			catch (Exception error)
 			{
+				await PopupNavigation.Instance.PopAsync();
 				await DisplayAlert("ERROR", error.ToString(), "OK");
 			}
 		}

@@ -1,5 +1,7 @@
-﻿using DistribuidoraFabio.Models;
+﻿using DistribuidoraFabio.Helpers;
+using DistribuidoraFabio.Models;
 using Newtonsoft.Json;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,49 +18,89 @@ namespace DistribuidoraFabio.Venta
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MostrarVenta : ContentPage
 	{
-		ObservableCollection<DetalleVenta> detalleVenta_lista = new ObservableCollection<DetalleVenta>();
-		public ObservableCollection<DetalleVenta> DetallesVentas { get { return detalleVenta_lista; } }
-		private int facturacomp = 0;
+		ObservableCollection<DetalleVentaNombre> detalleVenta_lista = new ObservableCollection<DetalleVentaNombre>();
+		public ObservableCollection<DetalleVentaNombre> DetallesVentas { get { return detalleVenta_lista; } }
+        private int facturacomp = 0;
 		private int ID_VENTA = 0;
 		private DateTime FECHA;
 		private int NUMERO_FACTURA = 0;
-		private string CLIENTE;
-		private string VENDEDOR;
+		private int CLIENTE;
+		private int VENDEDOR;
 		private string TIPO_VENTA;
-		private decimal SALDO = 0;
         private decimal TOTAL = 0;
-
         public MostrarVenta(int id_venta, DateTime fecha, int numero_factura, int id_cliente, int id_vendedor, string tipo_venta, 
 			decimal saldo, decimal total)
 		{
-			InitializeComponent();
+            string BusyReason = "Cargando...";
+            PopupNavigation.Instance.PushAsync(new BusyPopup(BusyReason));
+            InitializeComponent();
 			idVentaEntry.Text = Id.ToString();
 			facturaEntry.Text = numero_factura.ToString();
 			facturacomp = numero_factura;
             fechaEntry.Text = fecha.ToString("dd/MM/yyyy");
-			tipoVentaEntry.Text = tipo_venta;
-			vendedorEntry.Text = id_vendedor.ToString();
-			clienteEntry.Text = id_cliente.ToString();
-			totalEntry.Text = total.ToString();
-			MostrarDetalleVenta();
-
+			totalEntry.Text = total.ToString("#.##") + " Bs.";
+            GetDataCliente();
+            GetDataVendedor();
 			ID_VENTA = id_venta;
 			FECHA = fecha;
 			NUMERO_FACTURA = numero_factura;
-			CLIENTE = id_cliente.ToString();
-			VENDEDOR = id_vendedor.ToString();
+			CLIENTE = id_cliente;
+			VENDEDOR = id_vendedor;
 			TIPO_VENTA = tipo_venta;
-			SALDO = saldo;
 			TOTAL = total;
-		}
+            if(TIPO_VENTA == "Credito")
+			{
+                tipoVentaEntry.Text = tipo_venta + " Saldo: " + saldo.ToString("#.##") + " Bs.";
+            }
+            else if(TIPO_VENTA == "Contado")
+			{
+                tipoVentaEntry.Text = tipo_venta;
+            }
+            MostrarDetalleVenta();
+            PopupNavigation.Instance.PopAsync();
+        }
+        private async void GetDataCliente()
+        {
+            HttpClient client = new HttpClient();
+            var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/clientes/listaCliente.php");
+            var clientes = JsonConvert.DeserializeObject<List<Models.Cliente>>(response).ToList();
+            foreach (var item in clientes)
+            {
+                if(CLIENTE == item.id_cliente)
+				{
+                    clienteEntry.Text = item.nombre;
+				}
+            }
+        }
+        private async void GetDataVendedor()
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/vendedores/listaVendedores.php");
+                var vendedores = JsonConvert.DeserializeObject<List<Vendedores>>(response).ToList();
+                foreach (var item in vendedores)
+                {
+                    if(item.id_vendedor == VENDEDOR)
+					{
+                        vendedorEntry.Text = item.nombre;
+					}
+                }
+            }
+            catch (Exception error)
+            {
+                await DisplayAlert("Erro", error.ToString(), "OK");
+            }
+        }
         private async void MostrarDetalleVenta()
         {
             HttpClient client = new HttpClient();
-            var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/ventas/listaDetalleVenta.php");
-            var detalleVentaLista = JsonConvert.DeserializeObject<List<DetalleVenta>>(response);
+            var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/ventas/listaDetalleVentaNombre.php");
+            var detalleVentaLista = JsonConvert.DeserializeObject<List<DetalleVentaNombre>>(response);
 
             int cont = detalleVentaLista.Count;
             int numProd = 0;
+            
             foreach (var item in detalleVentaLista)
             {
                 if (facturacomp == item.factura)
@@ -74,13 +116,13 @@ namespace DistribuidoraFabio.Venta
                     stkPrd.Children.Add(stkP1);
 
                     Label label1 = new Label();
-                    label1.Text = "Producto " + numProd.ToString();
+                    label1.Text = "Producto " + numProd.ToString() + ":";
                     label1.FontSize = 23;
                     label1.TextColor = Color.Blue;
                     label1.WidthRequest = 200;
                     stkP1.Children.Add(label1);
                     Label entNomProd = new Label();
-                    entNomProd.Text = item.id_producto.ToString();
+                    entNomProd.Text = item.display_text_nombre;
                     entNomProd.FontSize = 23;
                     entNomProd.HorizontalOptions = LayoutOptions.FillAndExpand;
                     stkP1.Children.Add(entNomProd);
@@ -90,7 +132,7 @@ namespace DistribuidoraFabio.Venta
                     stkPrd.Children.Add(stkP2);
 
                     Label label2 = new Label();
-                    label2.Text = "Cantidad";
+                    label2.Text = "Cantidad:";
                     label2.FontSize = 23;
                     label2.TextColor = Color.Blue;
                     label2.WidthRequest = 200;
@@ -106,13 +148,13 @@ namespace DistribuidoraFabio.Venta
                     stkPrd.Children.Add(stkP3);
 
                     Label label3 = new Label();
-                    label3.Text = "Precio";
+                    label3.Text = "Precio:";
                     label3.FontSize = 23;
                     label3.TextColor = Color.Blue;
                     label3.WidthRequest = 200;
                     stkP3.Children.Add(label3);
                     Label entPrec = new Label();
-                    entPrec.Text = item.precio_producto.ToString();
+                    entPrec.Text = item.precio_producto.ToString("#.##") + " Bs.";
                     entPrec.FontSize = 23;
                     entPrec.HorizontalOptions = LayoutOptions.FillAndExpand;
                     stkP3.Children.Add(entPrec);
@@ -122,19 +164,18 @@ namespace DistribuidoraFabio.Venta
                     stkPrd.Children.Add(stkP4);
 
                     Label label4 = new Label();
-                    label4.Text = "Descuento";
+                    label4.Text = "Subtotal:";
                     label4.FontSize = 23;
                     label4.TextColor = Color.Blue;
                     label4.WidthRequest = 200;
                     stkP4.Children.Add(label4);
                     Label entdesc = new Label();
-                    entdesc.Text = item.descuento.ToString();
+                    entdesc.Text = item.sub_total.ToString("#.##") + " Bs.";
                     entdesc.FontSize = 23;
                     entdesc.HorizontalOptions = LayoutOptions.FillAndExpand;
                     stkP4.Children.Add(entdesc);
                 }
             }
         }
-
     }
 }

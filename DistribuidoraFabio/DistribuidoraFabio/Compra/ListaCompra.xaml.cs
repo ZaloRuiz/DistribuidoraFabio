@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using DistribuidoraFabio.Helpers;
 using DistribuidoraFabio.Models;
 using Newtonsoft.Json;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,12 +27,14 @@ namespace DistribuidoraFabio.Compra
 		protected async override void OnAppearing()
 		{
 			base.OnAppearing();
-
+			string BusyReason = "Cargando...";
+			await PopupNavigation.Instance.PushAsync(new BusyPopup(BusyReason));
 			HttpClient client = new HttpClient();
 			var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/compras/listaCompra.php");
 			var compras = JsonConvert.DeserializeObject<List<Compras>>(response);
 
 			listaCompra.ItemsSource = compras;
+			await PopupNavigation.Instance.PopAsync();
 		}
 		private async void OnItemSelected(object sender, ItemTappedEventArgs e)
 		{

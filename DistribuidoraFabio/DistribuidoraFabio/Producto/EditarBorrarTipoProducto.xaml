@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DistribuidoraFabio.Producto.EditarBorrarTipoProducto">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Entry Text="idproducto" IsVisible="False" x:Name="idproductosentry"/>
+                    <Label Text="Nombre: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
+                    <Entry x:Name="nombreTpEntry" HorizontalOptions="FillAndExpand" Text="Nombre"/>
+                </StackLayout>
+                <Button x:Name="btnEditarTP" Text="Editar" Clicked="BtnEditarTP_Clicked"/>
+                <Button x:Name="btnBorrarTP" Text="Borrar" Clicked="BtnBorrarTP_Clicked"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

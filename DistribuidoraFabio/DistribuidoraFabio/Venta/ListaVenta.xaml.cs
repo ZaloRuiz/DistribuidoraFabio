@@ -1,5 +1,7 @@
-﻿using DistribuidoraFabio.Models;
+﻿using DistribuidoraFabio.Helpers;
+using DistribuidoraFabio.Models;
 using Newtonsoft.Json;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +28,14 @@ namespace DistribuidoraFabio.Venta
 		protected async override void OnAppearing()
 		{
 			base.OnAppearing();
-
+			string BusyReason = "Cargando...";
+			await PopupNavigation.Instance.PushAsync(new BusyPopup(BusyReason));
 			HttpClient client = new HttpClient();
 			var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/ventas/listaVenta.php");
 			var ventas = JsonConvert.DeserializeObject<List<Ventas>>(response);
 
 			listaVenta.ItemsSource = ventas;
+			await PopupNavigation.Instance.PopAsync();
 		}
 		private async void OnItemSelected(object sender, ItemTappedEventArgs e)
 		{

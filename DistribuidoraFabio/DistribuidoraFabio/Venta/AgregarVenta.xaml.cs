@@ -1,5 +1,7 @@
-﻿using DistribuidoraFabio.Models;
+﻿using DistribuidoraFabio.Helpers;
+using DistribuidoraFabio.Models;
 using Newtonsoft.Json;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -172,7 +174,6 @@ namespace DistribuidoraFabio.Venta
                 }
             }
         }
-        
 		string pickedTP;
 		private async void picker_TP_SelectedIndexChanged(object sender, EventArgs e)
 		{
@@ -330,8 +331,10 @@ namespace DistribuidoraFabio.Venta
         {
             if (App._detalleVData.Count() > 0)
             {
+                string BusyReason = "Cargando...";
                 try
                 {
+                    await PopupNavigation.Instance.PushAsync(new BusyPopup(BusyReason));
                     foreach (var item in App._detalleVData)
                     {
                         DetalleVenta detalleVenta = new DetalleVenta()
@@ -371,7 +374,7 @@ namespace DistribuidoraFabio.Venta
                         HttpClient client2 = new HttpClient();
                         var result2 = await client2.PostAsync("https://dmrbolivia.com/api_distribuidora/inventarios/agregarInventario.php", content2);
 
-                        Producto producto = new Producto()
+                        Models.Producto producto = new Models.Producto()
                         {
                             id_producto = item.id_producto,
                             stock = item.stock - item.cantidad,
@@ -400,21 +403,28 @@ namespace DistribuidoraFabio.Venta
                     var result = await client.PostAsync("https://dmrbolivia.com/api_distribuidora/ventas/agregarVenta.php", content);
                     if (result.StatusCode == HttpStatusCode.OK)
                     {
+                        await PopupNavigation.Instance.PopAsync();
                         await DisplayAlert("OK", "Se agrego correctamente", "OK");
                         App._detalleVData.Clear();
                         await Navigation.PopAsync();
                     }
                     else
                     {
+                        await PopupNavigation.Instance.PopAsync();
                         await DisplayAlert("Error", result.StatusCode.ToString(), "OK");
                         await Navigation.PopAsync();
                     }
                 }
                 catch (Exception error)
                 {
+                    await PopupNavigation.Instance.PopAsync();
                     await DisplayAlert("ERROR", error.ToString(), "OK");
                 }
             }
+            else
+			{
+                await DisplayAlert("ERROR", "Agregue un producto a la lista", "OK");
+			}
         }
     }
 }

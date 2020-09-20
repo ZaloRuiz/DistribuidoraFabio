@@ -15,10 +15,10 @@ namespace DistribuidoraFabio.ViewModels
 {
 	public class InventarioGeneralVM : INotifyPropertyChanged
 	{
-		private Producto _selectedProducto;
+		private Models.ProductoNombre _selectedProducto;
 		private bool _isRefreshing;
-		private ObservableCollection<Producto> _listaDeProducto;
-		public ObservableCollection<Producto> ListaDeProducto
+		private ObservableCollection<Models.ProductoNombre> _listaDeProducto;
+		public ObservableCollection<Models.ProductoNombre> ListaDeProducto
 		{
 			get { return _listaDeProducto; }
 			set
@@ -30,7 +30,7 @@ namespace DistribuidoraFabio.ViewModels
 				}
 			}
 		}
-		public Producto SelectedProducto
+		public Models.ProductoNombre SelectedProducto
 		{
 			get
 			{
@@ -54,7 +54,6 @@ namespace DistribuidoraFabio.ViewModels
 				}
 			}
 		}
-		
 		public bool IsRefreshing
 		{
 			get
@@ -70,23 +69,23 @@ namespace DistribuidoraFabio.ViewModels
 		public ICommand RefreshCommand { get; set; }
 		public InventarioGeneralVM()
 		{
-			_listaDeProducto = new ObservableCollection<Producto>();
+			_listaDeProducto = new ObservableCollection<Models.ProductoNombre>();
 			GetProducto();
 			RefreshCommand = new Command(CmdRefresh);
 		}
 		public async void GetProducto()
 		{
 			HttpClient client = new HttpClient();
-			var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/productos/listaProducto.php");
-			var producto_lista = JsonConvert.DeserializeObject<List<Producto>>(response);
+			var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/productos/listaProductoNombres.php");
+			var producto_lista = JsonConvert.DeserializeObject<List<Models.ProductoNombre>>(response);
 			foreach (var item in producto_lista)
 			{
-				_listaDeProducto.Add(new Producto
+				_listaDeProducto.Add(new Models.ProductoNombre
 				{
 					id_producto = item.id_producto,
-					id_sub_producto = item.id_sub_producto,
-					id_tipo_producto = item.id_tipo_producto,
 					nombre = item.nombre,
+					nombre_sub_producto = item.nombre_sub_producto,
+					nombre_tipo_producto = item.nombre_tipo_producto,
 					precio_venta = item.precio_venta,
 					producto_alerta = item.producto_alerta,
 					promedio = item.promedio,
@@ -98,7 +97,7 @@ namespace DistribuidoraFabio.ViewModels
 		private async void CmdRefresh()
 		{
 			IsRefreshing = true;
-			await Task.Delay(3000);
+			await Task.Delay(2000);
 			IsRefreshing = false;
 		}
 		public event PropertyChangedEventHandler PropertyChanged;
