@@ -37,7 +37,7 @@ namespace DistribuidoraFabio.Cliente
 
 			HttpClient client = new HttpClient();
 
-			var result = await client.PostAsync("http://dmrbolivia.online/api/clientes/agregarCliente.php", content);
+			var result = await client.PostAsync("https://dmrbolivia.com/api_distribuidora/clientes/agregarCliente.php", content);
 
 			if (result.StatusCode == HttpStatusCode.OK)
 			{

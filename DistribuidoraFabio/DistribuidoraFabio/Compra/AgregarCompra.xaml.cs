@@ -16,7 +16,7 @@ namespace DistribuidoraFabio.Compra
 	public partial class AgregarCompra : ContentPage
 	{
 		List<ProductoNombre> prods = new List<ProductoNombre>();
-		List<Proveedor> proveedorList = new List<Proveedor>();
+		List<Models.Proveedor> proveedorList = new List<Models.Proveedor>();
 		private int idProductoSelected = 0;
 		private decimal MontoTotal = 0;
 		private int idProveedorSelected = 0;
@@ -39,7 +39,7 @@ namespace DistribuidoraFabio.Compra
 			{
 				HttpClient client = new HttpClient();
 				var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/proveedores/listaProveedor.php");
-				var proveedores = JsonConvert.DeserializeObject<List<Proveedor>>(response).ToList();
+				var proveedores = JsonConvert.DeserializeObject<List<Models.Proveedor>>(response).ToList();
 				proveedorPicker.ItemsSource = proveedores;
 				foreach (var item in proveedores)
 				{

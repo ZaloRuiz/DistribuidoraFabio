@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DistribuidoraFabio.Cliente.HistorialCliente">
+    <ContentPage.Content>
+        <ListView x:Name="listaClienteH" ItemTapped="ListaClienteH_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding numero_factura}" TextColor="Blue" Detail="{Binding fecha, StringFormat='{}{0:dd-MM-yyyy}'}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

@@ -6,6 +6,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Plugin.CurrentActivity;
+using Plugin.Permissions;
 
 namespace DistribuidoraFabio.Droid
 {
@@ -23,6 +25,9 @@ namespace DistribuidoraFabio.Droid
 
             Xamarin.Forms.DataGrid.DataGridComponent.Init();
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
