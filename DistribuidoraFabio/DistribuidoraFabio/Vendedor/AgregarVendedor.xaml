@@ -1,28 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DistribuidoraFabio.Vendedor.AgregarVendedor">
+             x:Class="DistribuidoraFabio.Vendedor.AgregarVendedor"
+             Visual="Material"
+             BackgroundColor="#324A51">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="10">
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Nombre: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
+            <StackLayout Padding="20">
+                <StackLayout>
                     <Entry x:Name="nombreVendedorEntry" Placeholder="Nombre" HorizontalOptions="FillAndExpand"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Telefono: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
                     <Entry x:Name="telefonoVendedorEntry" Placeholder="Telefono" HorizontalOptions="FillAndExpand" Keyboard="Numeric"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Direccion: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
                     <Entry x:Name="direccionVendedorEntry" HorizontalOptions="FillAndExpand" Placeholder="Direccion"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Numero de cuenta: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
                     <Entry x:Name="numero_cuentaVendedorEntry" HorizontalOptions="FillAndExpand" Placeholder="Numero de cuenta"  Keyboard="Numeric"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Cedula de identidad: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
                     <Entry x:Name="cedula_identidadVendedorEntry" HorizontalOptions="FillAndExpand" Placeholder="Cedula de Identidad"/>
                 </StackLayout>
                 <Button x:Name="btnGuardarVendedor" Text="Guadar" Clicked="BtnGuardarVendedor_Clicked"/>

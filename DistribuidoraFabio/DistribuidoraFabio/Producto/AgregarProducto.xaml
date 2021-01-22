@@ -1,55 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DistribuidoraFabio.Producto.AgregarProducto">
+             x:Class="DistribuidoraFabio.Producto.AgregarProducto"
+             Visual="Material"
+             BackgroundColor="#324A51">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Margin="20, 20, 20, 0">
-                <StackLayout Orientation="Horizontal">
-                    <Entry x:Name="idEntry" Text="id" IsVisible="False"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Tipo producto: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="110" FontSize="Medium"/>
-                    <Picker x:Name="tpPicker"
-                    ItemsSource="{Binding nombre_tipo_producto}"
-                    ItemDisplayBinding="{Binding nombre_tipo_producto}"
-                    SelectedItem="{Binding nombre_tipo_producto, Mode=TwoWay}"
-                    SelectedIndexChanged="TpPicker_SelectedIndexChanged"
-                        HorizontalOptions="FillAndExpand"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Nombre: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="110" FontSize="Medium"/>
-                    <Entry x:Name="nombrePEntry" HorizontalOptions="FillAndExpand" Placeholder="Nombre"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Sub producto: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="110" FontSize="Medium"/>
-                    <Picker x:Name="spPicker"
-                    ItemsSource="{Binding nombre_sub_producto}"
-                    ItemDisplayBinding="{Binding nombre_sub_producto}"
-                    SelectedItem="{Binding nombre, Mode=TwoWay}"
-                    SelectedIndexChanged="SpPicker_SelectedIndexChanged"
-                        HorizontalOptions="FillAndExpand"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Saldo Fisico: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="110" FontSize="Medium"/>
-                    <Entry x:Name="stockProductoEntry" Placeholder="Stock" Keyboard="Numeric" HorizontalOptions="FillAndExpand"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Stock Valorado: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="110" FontSize="Medium"/>
-                    <Entry x:Name="stockValoradoProductoEntry" HorizontalOptions="FillAndExpand" Placeholder="Saldo Valorado" Keyboard="Numeric"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Promedio: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="110" FontSize="Medium"/>
-                    <Entry x:Name="promedioProductoEntry" HorizontalOptions="FillAndExpand" Placeholder="Promedio" Keyboard="Numeric"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Precio Venta: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="110" FontSize="Medium"/>
-                    <Entry x:Name="precioventaEntry" HorizontalOptions="FillAndExpand" Placeholder="Precio Venta" Keyboard="Numeric"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Alerta: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="110" FontSize="Medium"/>
-                    <Entry x:Name="alertaProductoEntry" HorizontalOptions="FillAndExpand" Placeholder="Alerta" Keyboard="Numeric"/>
-                </StackLayout>
+            <StackLayout Padding="20">
+                <Entry x:Name="idEntry" Text="id" IsVisible="False"/>
+                <Picker x:Name="tpPicker" Title="Tipo de producto"
+                ItemsSource="{Binding nombre_tipo_producto}" ItemDisplayBinding="{Binding nombre_tipo_producto}" SelectedItem="{Binding nombre_tipo_producto, Mode=TwoWay}"
+                SelectedIndexChanged="TpPicker_SelectedIndexChanged" HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="nombrePEntry" HorizontalOptions="FillAndExpand" Placeholder="Nombre"/>
+                <Picker x:Name="spPicker" Title="Sub producto"
+                ItemsSource="{Binding nombre_sub_producto}" ItemDisplayBinding="{Binding nombre_sub_producto}" SelectedItem="{Binding nombre, Mode=TwoWay}"
+                SelectedIndexChanged="SpPicker_SelectedIndexChanged" HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="stockProductoEntry" Placeholder="Stock" Keyboard="Numeric" HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="stockValoradoProductoEntry" HorizontalOptions="FillAndExpand" Placeholder="Saldo Valorado" Keyboard="Numeric"/>
+                <Entry x:Name="promedioProductoEntry" HorizontalOptions="FillAndExpand" Placeholder="Promedio" Keyboard="Numeric"/>
+                <Entry x:Name="precioventaEntry" HorizontalOptions="FillAndExpand" Placeholder="Precio Venta" Keyboard="Numeric"/>
+                <Entry x:Name="alertaProductoEntry" HorizontalOptions="FillAndExpand" Placeholder="Alerta" Keyboard="Numeric"/>
                 <Button Text="Guardar" x:Name="btnGuardarPr" Clicked="BtnGuardarPr_Clicked"/>
             </StackLayout>
         </ScrollView>

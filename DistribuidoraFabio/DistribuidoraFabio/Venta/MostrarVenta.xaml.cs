@@ -107,7 +107,7 @@ namespace DistribuidoraFabio.Venta
                 {
                     BoxView boxView = new BoxView();
                     boxView.HeightRequest = 1;
-                    boxView.BackgroundColor = Color.Black;
+                    boxView.BackgroundColor = Color.FromHex("#95B0B7");
                     stkPrd.Children.Add(boxView);
 
                     numProd = numProd + 1;
@@ -118,12 +118,13 @@ namespace DistribuidoraFabio.Venta
                     Label label1 = new Label();
                     label1.Text = "Producto " + numProd.ToString() + ":";
                     label1.FontSize = 23;
-                    label1.TextColor = Color.Blue;
+                    label1.TextColor = Color.FromHex("#4DCCE8");
                     label1.WidthRequest = 200;
                     stkP1.Children.Add(label1);
                     Label entNomProd = new Label();
                     entNomProd.Text = item.display_text_nombre;
                     entNomProd.FontSize = 23;
+                    entNomProd.TextColor = Color.FromHex("#95B0B7");
                     entNomProd.HorizontalOptions = LayoutOptions.FillAndExpand;
                     stkP1.Children.Add(entNomProd);
 
@@ -134,12 +135,13 @@ namespace DistribuidoraFabio.Venta
                     Label label2 = new Label();
                     label2.Text = "Cantidad:";
                     label2.FontSize = 23;
-                    label2.TextColor = Color.Blue;
+                    label2.TextColor = Color.FromHex("#4DCCE8");
                     label2.WidthRequest = 200;
                     stkP2.Children.Add(label2);
                     Label entCant = new Label();
                     entCant.Text = item.cantidad.ToString();
                     entCant.FontSize = 23;
+                    entCant.TextColor = Color.FromHex("#95B0B7");
                     entCant.HorizontalOptions = LayoutOptions.FillAndExpand;
                     stkP2.Children.Add(entCant);
 
@@ -150,12 +152,13 @@ namespace DistribuidoraFabio.Venta
                     Label label3 = new Label();
                     label3.Text = "Precio:";
                     label3.FontSize = 23;
-                    label3.TextColor = Color.Blue;
+                    label3.TextColor = Color.FromHex("#4DCCE8");
                     label3.WidthRequest = 200;
                     stkP3.Children.Add(label3);
                     Label entPrec = new Label();
                     entPrec.Text = item.precio_producto.ToString("#.##") + " Bs.";
                     entPrec.FontSize = 23;
+                    entPrec.TextColor = Color.FromHex("#95B0B7");
                     entPrec.HorizontalOptions = LayoutOptions.FillAndExpand;
                     stkP3.Children.Add(entPrec);
 
@@ -166,12 +169,13 @@ namespace DistribuidoraFabio.Venta
                     Label label4 = new Label();
                     label4.Text = "Subtotal:";
                     label4.FontSize = 23;
-                    label4.TextColor = Color.Blue;
+                    label4.TextColor = Color.FromHex("#4DCCE8");
                     label4.WidthRequest = 200;
                     stkP4.Children.Add(label4);
                     Label entdesc = new Label();
                     entdesc.Text = item.sub_total.ToString("#.##") + " Bs.";
                     entdesc.FontSize = 23;
+                    entdesc.TextColor = Color.FromHex("#95B0B7");
                     entdesc.HorizontalOptions = LayoutOptions.FillAndExpand;
                     stkP4.Children.Add(entdesc);
                 }

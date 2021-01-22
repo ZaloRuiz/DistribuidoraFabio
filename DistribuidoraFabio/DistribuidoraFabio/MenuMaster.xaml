@@ -2,30 +2,31 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DistribuidoraFabio.MenuMaster"
-             Title="Master">
+             Title="Master"
+             Visual="Material"
+             BackgroundColor="#324A51">
   <StackLayout>
     <ListView x:Name="MenuItemsListView"
               SeparatorVisibility="None"
               HasUnevenRows="true"
               ItemsSource="{Binding MenuItems}">
       <ListView.Header>
-        <Grid BackgroundColor="#03A9F4">
+                <Grid BackgroundColor="#4DCCE8">
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="10"/>
           </Grid.ColumnDefinitions>
           <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="100"/>
           </Grid.RowDefinitions>
           <Label
-              Grid.Column="1"
-              Grid.Row="2"
-              Text="AppName"
-              Style="{DynamicResource SubtitleStyle}"/>
+              Grid.Column="0"
+              Grid.Row="0"
+              Text="Tienda Ejemplo"
+              TextColor="White"
+              FontSize="Large"
+              HorizontalTextAlignment="Center"
+              VerticalTextAlignment="Center"
+              Padding="10" />
         </Grid>
       </ListView.Header>
       <ListView.ItemTemplate>
@@ -35,7 +36,7 @@
               <Label VerticalOptions="FillAndExpand" 
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
-                    FontSize="24"/>
+                    FontSize="24" TextColor="#95B0B7"/>
             </StackLayout>
           </ViewCell>
         </DataTemplate>

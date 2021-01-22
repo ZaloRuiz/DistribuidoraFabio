@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -33,7 +34,6 @@ namespace DistribuidoraFabio.Venta
 			HttpClient client = new HttpClient();
 			var response = await client.GetStringAsync("https://dmrbolivia.com/api_distribuidora/ventas/listaVenta.php");
 			var ventas = JsonConvert.DeserializeObject<List<Ventas>>(response);
-
 			listaVenta.ItemsSource = ventas;
 			await PopupNavigation.Instance.PopAsync();
 		}

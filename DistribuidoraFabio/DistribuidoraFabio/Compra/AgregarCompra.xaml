@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DistribuidoraFabio.Compra.AgregarCompra">
+             x:Class="DistribuidoraFabio.Compra.AgregarCompra"
+             Visual="Material"
+             BackgroundColor="#324A51">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout x:Name="stkCompra" Padding="10">
@@ -10,11 +12,10 @@
                             ItemsSource="{Binding nombre}" ItemDisplayBinding="{Binding nombre}" SelectedItem="{Binding nombre}"
                             SelectedIndexChanged="ProveedorPicker_SelectedIndexChanged_1" WidthRequest="150"/>
                     <Entry x:Name="numero_facturaCompraEntry" Placeholder="Numero de factura" Keyboard="Numeric" WidthRequest="180"/>
-                    <DatePicker x:Name="fechaCompraEntry" MaximumDate="12/31/2030" MinimumDate="01/01/2019" WidthRequest="120">
-                    </DatePicker>
+                    <DatePicker x:Name="fechaCompraEntry" MaximumDate="12/31/2030" MinimumDate="01/01/2019" WidthRequest="120"/>
                 </StackLayout>
                 <StackLayout x:Name="stkProductos" Padding="10">
-                    <Label HorizontalOptions="Start" Text="Agregar Producto" TextColor="Black" FontSize="14"/>
+                    <Label HorizontalOptions="Start" Text="Agregar Producto" TextColor="#95B0B7" FontSize="14"/>
                     <Frame HasShadow="True" CornerRadius="10" Padding="0" Margin="0" BorderColor="DarkGray">
                         <StackLayout>
                             <StackLayout Orientation="Horizontal">
@@ -49,7 +50,7 @@
                                   ItemTapped="listProductos_ItemTapped">
                         <ListView.Header>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Lista productos" TextColor="Black"/>
+                                <Label Text="Lista productos" TextColor="#95B0B7"/>
                             </StackLayout>
                         </ListView.Header>
                         <ListView.ItemTemplate>
@@ -65,11 +66,11 @@
                                         <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" TextColor="Black" LineBreakMode="TailTruncation">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="Producto: "/>
+                                                    <Span Text="Prod: "/>
                                                     <Span Text="{Binding nombre_producto}"/>
-                                                    <Span Text="   Cantidad: "/>
+                                                    <Span Text="   Cant: "/>
                                                     <Span Text="{Binding cantidad}"/>
-                                                    <Span Text="   Descuento: "/>
+                                                    <Span Text="   Desc: "/>
                                                     <Span Text="{Binding descuento}"/>
                                                     <Span Text="   Subtotal: "/>
                                                     <Span Text="{Binding sub_total, StringFormat=' {0:0.00}'}"/>

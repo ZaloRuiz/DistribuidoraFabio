@@ -1,43 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DistribuidoraFabio.Producto.EditarBorrarProducto">
+             x:Class="DistribuidoraFabio.Producto.EditarBorrarProducto"
+             Visual="Material"
+             BackgroundColor="#324A51">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
-                <Entry x:Name="idProdEntry" HorizontalOptions="FillAndExpand" Text="Id" IsVisible="False"/>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Nombre: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="nombreProdEntry" HorizontalOptions="FillAndExpand" Text="Nombre"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Tipo de producto: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="idTProdEntry" HorizontalOptions="FillAndExpand" Text="Tipo Producto"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Sub producto: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="idSProdEntry" HorizontalOptions="FillAndExpand" Text="Sub Producto"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Stock: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="stockEntry" HorizontalOptions="FillAndExpand" Text="Stock"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Stock Valorado: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="stockValoradoEntry" HorizontalOptions="FillAndExpand" Text="Id"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Promedio: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="promedioEntry" HorizontalOptions="FillAndExpand" Text="Id"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Precio_Venta: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="precioventaEntry" HorizontalOptions="FillAndExpand" Placeholder="Precio Venta" Keyboard="Numeric"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Alerta: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="alertaEntry" HorizontalOptions="FillAndExpand" Text="Id"/>
-                </StackLayout>
+            <StackLayout Padding="20">
+                <Entry x:Name="idProdEntry" HorizontalOptions="FillAndExpand" IsVisible="False"/>
+                <Entry x:Name="nombreProdEntry" HorizontalOptions="FillAndExpand" Placeholder="Nombre"/>
+                <Entry x:Name="idTProdEntry" HorizontalOptions="FillAndExpand" Placeholder="Tipo Producto"/>
+                <Entry x:Name="idSProdEntry" HorizontalOptions="FillAndExpand" Placeholder="Sub Producto"/>
+                <Entry x:Name="stockEntry" HorizontalOptions="FillAndExpand" Placeholder="Stock"/>
+                <Entry x:Name="stockValoradoEntry" HorizontalOptions="FillAndExpand" Placeholder="Stock Valorado"/>
+                <Entry x:Name="promedioEntry" HorizontalOptions="FillAndExpand" Placeholder="Precio Promedio"/>
+                <Entry x:Name="precioventaEntry" HorizontalOptions="FillAndExpand" Placeholder="Precio Venta" Keyboard="Numeric"/>
+                <Entry x:Name="alertaEntry" HorizontalOptions="FillAndExpand" Placeholder="Alerta"/>
                 <StackLayout>
                     <Button x:Name="btnEditarProd" Text="Editar" Clicked="BtnEditarProd_Clicked" />
                     <Button x:Name="btnBorrarProd" Text="Borrar" Clicked="BtnBorrarProd_Clicked" />

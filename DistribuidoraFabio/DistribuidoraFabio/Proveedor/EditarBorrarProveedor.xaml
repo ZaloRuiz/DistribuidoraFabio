@@ -1,28 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DistribuidoraFabio.Proveedor.EditarBorrarProveedor">
+             x:Class="DistribuidoraFabio.Proveedor.EditarBorrarProveedor"
+             Visual="Material"
+             BackgroundColor="#324A51">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="10">
+            <StackLayout Padding="20">
                 <StackLayout Orientation="Horizontal">
                     <Entry x:Name="idProvEntry" Text="Id" IsVisible="False"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Nombre:" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="nombrePEntry" HorizontalOptions="FillAndExpand"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Direccion" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="direccionPEntry" HorizontalOptions="FillAndExpand"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Contacto" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="contactoPEntry" HorizontalOptions="FillAndExpand"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Telefono" HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
-                    <Entry x:Name="telefonoPEntry" HorizontalOptions="FillAndExpand" Keyboard="Numeric"/>
+                    <Entry x:Name="nombrePEntry" HorizontalOptions="FillAndExpand" Placeholder="Nombre"/>
+                    <Entry x:Name="direccionPEntry" HorizontalOptions="FillAndExpand" Placeholder="Direccion"/>
+                    <Entry x:Name="contactoPEntry" HorizontalOptions="FillAndExpand" Placeholder="Contacto"/>
+                    <Entry x:Name="telefonoPEntry" HorizontalOptions="FillAndExpand" Keyboard="Numeric" Placeholder="Telefono"/>
                 </StackLayout>
                 <StackLayout>
                     <Button x:Name="BtneditarProveedor" Text="Editar" Clicked="BtneditarProveedor_Clicked"/>

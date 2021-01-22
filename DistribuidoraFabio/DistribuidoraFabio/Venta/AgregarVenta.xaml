@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DistribuidoraFabio.Venta.AgregarVenta">
+             x:Class="DistribuidoraFabio.Venta.AgregarVenta"
+             Visual="Material"
+             BackgroundColor="#324A51">
     <ContentPage.Content>
          <ScrollView>
-                <StackLayout x:Name="stkVenta" BackgroundColor="White" Padding="10">
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+            <StackLayout x:Name="stkVenta" Padding="10" Visual="Material">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Visual="Material">
                         <Picker x:Name="clientePicker" Title="Cliente"
                             ItemsSource="{Binding nombre}"
                             ItemDisplayBinding="{Binding nombre}"
@@ -22,10 +24,10 @@
                         <DatePicker x:Name="fechaVentaEntry" MaximumDate="12/31/2030" MinimumDate="01/01/2020" HorizontalOptions="FillAndExpand"/>
                     </StackLayout>
                     <StackLayout x:Name="stkProductos" Padding="0" Margin="0, 15, 0, 15">
-                        <Label HorizontalOptions="Start" Text="Agregar Producto" TextColor="Black" FontSize="14"/>
-                        <Frame HasShadow="True" CornerRadius="10" Padding="0" Margin="0" BorderColor="DarkGray">
-                            <StackLayout>
-                                <StackLayout Orientation="Horizontal">
+                    <Label HorizontalOptions="Start" Text="Agregar Producto" TextColor="#95B0B7" FontSize="14" Visual="Material"/>
+                    <Frame HasShadow="True" CornerRadius="10" Padding="0" Margin="0" BorderColor="DarkGray" Visual="Material">
+                        <StackLayout Visual="Material">
+                            <StackLayout Orientation="Horizontal" Visual="Material">
                                     <Picker x:Name="picker_TP" Title="Tipo producto" HorizontalOptions="FillAndExpand" VerticalOptions="Center" 
                                             SelectedIndexChanged="picker_TP_SelectedIndexChanged"
                                             ItemsSource="{Binding nombre_tipo_producto}" ItemDisplayBinding="{Binding nombre_tipo_producto}" 
@@ -38,7 +40,7 @@
                                            IsReadOnly="True"/>
                                 <Entry x:Name="txtStock" TextColor="Black" Placeholder="Stock" VerticalOptions="Center" HorizontalOptions="FillAndExpand" IsReadOnly="True"/>
                             </StackLayout>
-                                <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Horizontal" Visual="Material">
                                 <Entry x:Name="txtCantidad" Placeholder="Cantidad" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
                                            Keyboard="Numeric"/>
                                 <Entry x:Name="txtDescuento" Placeholder="Descuento" HorizontalOptions="FillAndExpand" VerticalOptions="Center"
@@ -52,12 +54,12 @@
                             </StackLayout>
                         </Frame>
                     </StackLayout>
-                    <StackLayout>
+                <StackLayout Visual="Material">
                         <ListView x:Name="listProductos" HorizontalOptions="FillAndExpand" HeightRequest="150" VerticalScrollBarVisibility="Always" 
-                                  ItemTapped="listProductos_ItemTapped">
+                                  ItemTapped="listProductos_ItemTapped" Visual="Material" SeparatorColor="#95B0B7">
                             <ListView.Header>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="Lista productos" TextColor="Black"/>
+                            <StackLayout Orientation="Horizontal" Visual="Material">
+                                <Label Text="Lista productos" TextColor="#95B0B7"/>
                                 </StackLayout>
                             </ListView.Header>
                             <ListView.ItemTemplate>
@@ -70,14 +72,14 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" TextColor="Black" LineBreakMode="TailTruncation">
+                                        <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" TextColor="#95B0B7" LineBreakMode="TailTruncation">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="Producto: "/>
+                                                        <Span Text="Prod: "/>
                                                         <Span Text="{Binding nombre_producto}"/>
-                                                        <Span Text="   Cantidad: "/>
+                                                        <Span Text="   Cant: "/>
                                                         <Span Text="{Binding cantidad}"/>
-                                                        <Span Text="   Descuento: "/>
+                                                        <Span Text="   Desc: "/>
                                                         <Span Text="{Binding descuento}"/>
                                                         <Span Text="   Subtotal: "/>
                                                         <Span Text="{Binding sub_total, StringFormat=' {0:0.00}'}"/>

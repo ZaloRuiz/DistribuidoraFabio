@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DistribuidoraFabio.Producto.AgregarSubProducto">
+             x:Class="DistribuidoraFabio.Producto.AgregarSubProducto"
+             Visual="Material"
+             BackgroundColor="#324A51">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label Text="Nombre: " HorizontalOptions="Start" VerticalOptions="Center" WidthRequest="100" FontSize="Medium"/>
+            <StackLayout Padding="20">
+                <StackLayout>
                     <Entry x:Name="nombreSpEntry" HorizontalOptions="FillAndExpand" Placeholder="Nombre"/>
                 </StackLayout>
                 <Button x:Name="btnGuardarSP" Text="Guardar" Clicked="BtnGuardarSP_Clicked"/>
